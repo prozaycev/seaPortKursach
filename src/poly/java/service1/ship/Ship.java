@@ -18,9 +18,9 @@ public class Ship {
     @Override
     public String toString() {
         return "\nShip{" +
-                "Ship name:" + shipName +
+                "Ship name: " + shipName +
                 ", arrival: " + date +
-                ", cargo info:" + cargo +
+                ", cargo info: " + cargo +
                 "}";
     }
 

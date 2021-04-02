@@ -4,9 +4,9 @@ import poly.java.service1.Date;
 import java.util.Objects;
 
 public class Ship {
+    private final String shipName;
     private static int countShip = 0;
     private Date date;
-    private final String shipName;
     private Cargo cargo;
 
     public Ship(Date date, Cargo cargo) {

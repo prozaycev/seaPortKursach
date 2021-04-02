@@ -1,7 +1,11 @@
 package poly.java.service1;
 
+import com.google.gson.*;
 import poly.java.service1.ship.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -20,6 +24,15 @@ public class Timetable {
             } catch (IllegalArgumentException e) {
                 System.err.println("Ship is not create: " + e);
             }
+        }
+    }
+
+    public void makeTimetableJson(String fileName) {
+        try (Writer writer = new FileWriter(fileName + ".json")) {
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(ships, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

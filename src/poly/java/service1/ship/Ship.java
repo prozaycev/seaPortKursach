@@ -16,17 +16,11 @@ public class Ship {
         this.cargo = cargo;
     }
 
-    public Cargo getCargo() {
-        return cargo;
-    }
+    public Cargo getCargo() { return cargo; }
 
-    public Date getDate() {
-        return date;
-    }
+    public Date getDate() { return date; }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    public void setDate(Date date) { this.date = date; }
 
     @Override
     public String toString() {

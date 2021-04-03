@@ -17,8 +17,11 @@ public class Cargo {
         return countCargo;
     }
 
-    public CargoType getCargoType() {
-        return cargoType;
+    public CargoType getCargoType() { return cargoType; }
+
+    @Override
+    public String toString() {
+        return cargoType + "[" + countCargo + "]";
     }
 
     public enum CargoType {
@@ -29,7 +32,7 @@ public class Cargo {
         LOOSE {
             @Override
             public String toString() {
-                return "Loos";
+                return "Loose";
             }
             }, // сыпучее
         LIQUID {
@@ -40,8 +43,4 @@ public class Cargo {
         }, // текучее
     }
 
-    @Override
-    public String toString() {
-        return cargoType + "[" + countCargo + "]";
-    }
 }

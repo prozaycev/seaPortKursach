@@ -1,14 +1,16 @@
 package poly.java.service1;
 
-import poly.java.service1.ship.Ship;
-
 public class Date implements Comparable<Date> {
-    public static final int SECOND_IN_MONTH = 30 * 24 * 60;
+    private static final int DAY_IN_MONTH = 30;
+    private static final int HOUR_IN_DAY = 24;
+    private static final int MINUTES_IN_HOUR = 60;
+    public static final int MINUTES_IN_MONTH = DAY_IN_MONTH * HOUR_IN_DAY * MINUTES_IN_HOUR; // НОРМ ЧТО ОНО public?
+
     private final int day;
     private final Time time;
 
     public Date(int day, int hour, int minute) {
-        if (day < 1 || day > 30) {
+        if (day < 1 || day > DAY_IN_MONTH) {
             throw new IllegalArgumentException("Incorrect Time");
         }
         this.day = day;
@@ -16,15 +18,15 @@ public class Date implements Comparable<Date> {
     }
 
     public Date(int minutes) {
-        if (minutes < 0 || minutes > SECOND_IN_MONTH) {
+        if (minutes < 0 || minutes > MINUTES_IN_MONTH) {
             throw new IllegalArgumentException("Incorrect Time");
         }
         time = new Time(0, 0);
-        time.minute = minutes % 60;
-        minutes /= 60;
-        time.hour = minutes % 24;
+        time.minute = minutes % MINUTES_IN_HOUR;
+        minutes /= MINUTES_IN_HOUR;
+        time.hour = minutes % HOUR_IN_DAY;
 
-        day = minutes / 24 + 1;
+        day = (minutes / HOUR_IN_DAY) + 1;
     }
 
     private static class Time {
@@ -32,12 +34,12 @@ public class Date implements Comparable<Date> {
         int minute;
 
         private Time(int h, int m) {
-            if (h >= 0 && h < 24 && m >= 0 && m < 60) {
-                this.hour = h;
-                this.minute = m;
-            } else {
+            if (h < 0 || h >= HOUR_IN_DAY ||
+                    m < 0 || m >= MINUTES_IN_HOUR) {
                 throw new IllegalArgumentException("Incorrect Time");
             }
+            this.hour = h;
+            this.minute = m;
         }
     }
 
@@ -54,13 +56,13 @@ public class Date implements Comparable<Date> {
     }
 
     public int getMinuteFromFirstDayInMonthToArrival() {
-        return time.minute + time.hour * 60 + day * 60 * 24;
+        return time.minute + time.hour * MINUTES_IN_HOUR + day * MINUTES_IN_HOUR * HOUR_IN_DAY;
     }
 
     @Override
     public String toString() {
         return getDay() + ":" + getHour() + ":" + getMinute();
-    }
+    } // написать форматирование dd:hh:mm
 
     public int compareTo(Date date) {
         return Integer.compare(getMinuteFromFirstDayInMonthToArrival(), date.getMinuteFromFirstDayInMonthToArrival());

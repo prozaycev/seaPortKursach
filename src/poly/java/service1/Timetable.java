@@ -9,12 +9,11 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
-
 public class Timetable {
     private Ship[] ships;
 
     public Timetable(int countShip) {
-        final int timeStep = (int) (Date.SECOND_IN_MONTH / countShip);
+        final int timeStep = (int) (Date.MINUTES_IN_MONTH / countShip);
         this.ships = new Ship[countShip];
         for (int i = 0; i < countShip; ++i) {
             try {
@@ -29,7 +28,7 @@ public class Timetable {
     }
 
     public void makeTimetableJson(String fileName) {
-        try (Writer writer = new FileWriter(fileName + ".json")) {
+        try (Writer writer = new FileWriter(fileName)) {
             Gson gson = new GsonBuilder().create();
             gson.toJson(ships, writer);
         } catch (IOException e) {

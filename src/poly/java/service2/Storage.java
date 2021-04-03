@@ -5,12 +5,12 @@ import poly.java.service3.Port;
 
 public class Storage {
     private Timetable trueTimetable;
-    private Timetable realTimetable;
 
     public Storage(int countShip) {
+        String jsonFileName = "outputJson.json";
         trueTimetable = new Timetable(countShip);
-        trueTimetable.makeTimetableJson("outputJson");
-        Port.randomizeShipsArrival();
+        trueTimetable.makeTimetableJson(jsonFileName);
+        Port.simulatePort(jsonFileName, 2, 2,2);
     }
 
 }

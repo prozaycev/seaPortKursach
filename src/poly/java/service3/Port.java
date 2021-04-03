@@ -17,28 +17,48 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Port {
 
+    private static final int PERFORMANCE_BOX_CRANE = 40; // containers per hour
+    private static final int PERFORMANCE_LOOSE_CRANE = 50; // tons per hour
+    private static final int PERFORMANCE_LIQUID_CRANE = 60; // tons per hour
+
     private static CopyOnWriteArrayList<Ship> boxList = new CopyOnWriteArrayList<>();
     private static CopyOnWriteArrayList<Ship> looseList = new CopyOnWriteArrayList<>();
     private static CopyOnWriteArrayList<Ship> liquidList = new CopyOnWriteArrayList<>();
 
+    public static void simulatePort(String jsonFileName, int countBoxCrane, int countLooseCrane, int countLiquidCrane) {
+        Ship[] ships = parsJsonTimeTable(jsonFileName);
+        randomizeShipsArrival(ships);
+        /*
+        Thread[] boxCraneThread = new Thread[countBoxCrane];
+        for (int i = 0; i < boxCraneThread.length; i++) {
+            boxCraneThread[i] = new Thread(new Crane(PERFORMANCE_BOX_CRANE));
+        }
+        Thread[] looseCraneThread = new Thread[countLooseCrane];
+        for (int i = 0; i < looseCraneThread.length; i++) {
+            looseCraneThread[i] = new Thread();
+        }
+        Thread[] liquidCraneThread = new Thread[countLiquidCrane];
+        for (int i = 0; i < liquidCraneThread.length; i++) {
+            liquidCraneThread[i] = new Thread();
+        }
+       */
+    }
 
-    private static Ship[] parsJsonTimeTable() {
-        final String jsonPath = System.getProperty("user.dir") + "/outputJson.json";
+    private static Ship[] parsJsonTimeTable(String jsonFileName) {
+        final String jsonPath = System.getProperty("user.dir") + '/' + jsonFileName;
         Ship[] ships = {};
         try {
             Gson gson = new Gson();
             BufferedReader br = new BufferedReader(new FileReader(jsonPath));
-            Type type = new TypeToken<Ship[]>() {
-            }.getType();
+            Type type = new TypeToken<Ship[]>(){}.getType();
             ships = gson.fromJson(br, type);
         } catch (FileNotFoundException e) {
-            System.err.println("File not found");
+            System.err.println("File not found"); // косяк, надо пробросить дальше
         }
         return ships;
     }
 
-    public static void randomizeShipsArrival() {
-        Ship[] ships = parsJsonTimeTable();
+    private static void randomizeShipsArrival(Ship[] ships) {
         if (ships.length == 0) {
             System.out.println("Empty read json in service3");
         }
@@ -67,4 +87,5 @@ public class Port {
             System.err.println("Ship arriving is out of bounds simulating period");
         }
     }
+
 }

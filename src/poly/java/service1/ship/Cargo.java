@@ -2,7 +2,7 @@ package poly.java.service1.ship;
 
 public class Cargo {
     private int countCargo = 0;
-    private CargoType cargoType;
+    private final CargoType cargoType;
     public static final int MAX_COUNT_CARGO_IN_SHIP = 1000;
 
     public Cargo(int countCargo, CargoType cargoType) {

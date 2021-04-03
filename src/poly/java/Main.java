@@ -1,15 +1,13 @@
 package poly.java;
 
-import poly.java.service1.Timetable;
-import poly.java.service1.ship.*;
+import poly.java.service2.Storage;
+import poly.java.service3.Port;
 
 public class Main {
     private static final int COUNT_SHIP = 43;
 
-
     public static void main(String[] args) {
         System.out.println("Start program");
-        Timetable timetable = new Timetable(COUNT_SHIP);
-        timetable.makeTimetableJson("outputJson");
+        Storage storage = new Storage(COUNT_SHIP);
     }
 }

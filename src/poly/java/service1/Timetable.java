@@ -9,11 +9,12 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
+
 public class Timetable {
     private Ship[] ships;
 
     public Timetable(int countShip) {
-        final int timeStep = (int)(Date.SECOND_IN_MONTH/countShip);
+        final int timeStep = (int) (Date.SECOND_IN_MONTH / countShip);
         this.ships = new Ship[countShip];
         for (int i = 0; i < countShip; ++i) {
             try {
@@ -34,6 +35,10 @@ public class Timetable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Ship[] getShips() {
+        return ships;
     }
 
     @Override
